@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: epcis-service
-          image: nimbleplatform/epcis-server:staging
+          image: 'rannybal2024/epcis-service:IMAGE_TAG'
           env: 
             - name: EPCIS_DB_NAME
               value: "epcis"
