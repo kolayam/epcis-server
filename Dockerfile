@@ -1,5 +1,6 @@
 FROM maven
 WORKDIR /usr/src/app
+COPY . .
 RUN mvn clean install -Dmaven.test.skip=true
 
 FROM nimbleplatform/nimble-base
