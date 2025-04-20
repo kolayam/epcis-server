@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: epcis-service
+  namespace: nimble-platform
+  labels:
+    app: nimble-platform
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: epcis-service
+  template:
+    metadata:
+      labels:
+        app: epcis-service
+    spec:
+      containers:
+        - name: epcis-service
+          image: nimbleplatform/epcis-server:staging
+          env: 
+            - name: EPCIS_DB_NAME
+              value: "epcis"
+            - name: EPCIS_DB_SSL
+              value: "true"
+            - name: EPCIS_DB_URL
+              value: "mongodb+srv://doadmin:5t10ghP84Vp92sN6@db-mongodb-kolanot-12798e8c.mongo.ondigitalocean.com/epcis?tls=true&authSource=admin&replicaSet=db-mongodb-kolanot"
+            - name: IDENTITY_SERVER_URI
+              value: "http://identity-service:9096"
+            - name: EPCIS_SERVICE_URL
+              value: "http://epcis-service:8080"
+            - name: CONFIG_SERVER_URI
+              value: "http://config-server:8888"
+            - name: CONFIG_SERVER_FAILFAST
+              value: "true"
+            - name: DISCOVERY_ENABLED
+              value: "true"
+            - name: DISCOVERY_SERVER_URI
+              value: "http://service-discovery:8761"
+            - name: DISCOVERY_PREFER_IP
+              value: "false"
+          ports:
+            - containerPort: 8080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: nimble-platform
+  labels:
+    app: epcis-service
+  name: epcis-service
+spec:
+  ports:
+  - name: "http"
+    protocol: TCP
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: epcis-service
+status:
+  loadBalancer: {}
