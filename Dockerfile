@@ -1,8 +1,8 @@
 FROM maven
 WORKDIR /usr/src/app
 COPY . .
-RUN git clone git@github.com:kolayam/epcis-server.git
 RUN ls .
+RUN git clone git@github.com:kolayam/epcis-server.git
 WORKDIR /usr/src/app/epcis-server
 RUN mvn clean install -Dmaven.test.skip=true
 
