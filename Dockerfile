@@ -2,7 +2,7 @@ FROM nimbleplatform/nimble-base
 MAINTAINER Salzburg Research <nimble-srfg@salzburgresearch.at>
 
 # copy resource folder
-COPY /resources /resources
+COPY src/main/resources /resources
 RUN ls /resources
 
 VOLUME /tmp
