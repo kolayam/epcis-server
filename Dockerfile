@@ -1,6 +1,9 @@
 FROM maven
 WORKDIR /usr/src/app
 COPY . .
+RUN git clone git@github.com:kolayam/epcis-server.git
+RUN ls .
+WORKDIR /usr/src/app/epcis-server
 RUN mvn clean install -Dmaven.test.skip=true
 
 FROM nimbleplatform/nimble-base
