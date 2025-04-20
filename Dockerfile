@@ -1,4 +1,4 @@
-FROM maven
+FROM maven:3.8.6-jdk-8
 WORKDIR /usr/src/app
 COPY . .
 RUN ls .
